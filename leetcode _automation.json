@@ -1,0 +1,190 @@
+{
+  "name": "leetcode _automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -272,
+        -64
+      ],
+      "id": "f385bd2c-ba21-444e-a822-7d44c21dfa8d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://leetcode.com/graphql",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\",\n  \"Referer\": \"https://leetcode.com\",\n  \"User-Agent\": \"Mozilla/5.0\",\n  \"Cookie\": \"LEETCODE_SESSION=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfYXV0aF91c2VyX2lkIjoiOTUwMjY5MiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImFsbGF1dGguYWNjb3VudC5hdXRoX2JhY2tlbmRzLkF1dGhlbnRpY2F0aW9uQmFja2VuZCIsIl9hdXRoX3VzZXJfaGFzaCI6ImRlZDE1ZDk5NGM1NWQxMTRlMTdjNWNjMDVjMWY5ZGJjZDA2Mzg3OTkyZGFmZTgxYzc2ZjA4OWY1Nzc2ZTg4MWQiLCJzZXNzaW9uX3V1aWQiOiJlM2QwNGRkMCIsImlkIjo5NTAyNjkyLCJlbWFpbCI6ImJhbmRpcHJlZXRoYW1yZWRkeTE2QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYmFuZGlwcmVldGhhbXJlZGR5MTYiLCJ1c2VyX3NsdWciOiJiYW5kaXByZWV0aGFtcmVkZHkxNiIsImF2YXRhciI6Imh0dHBzOi8vYXNzZXRzLmxlZXRjb2RlLmNvbS91c2Vycy9hdmF0YXJzL2F2YXRhcl8xNjgzNzkwMzQyLnBuZyIsInJlZnJlc2hlZF9hdCI6MTc1NTY2OTI1NywiaXAiOiIyNDA5OjQwZjA6ZGY6ZTllOTo2NDJhOmJlMTE6NGQ5OTo4NmU5IiwiaWRlbnRpdHkiOiI4ZjY5NDYwOWJkZGM0OTAzYjhlOGZlZTUwZDc4M2NjMSIsImRldmljZV93aXRoX2lwIjpbIjA4NDM2OWU0MTI1YjJiNzdhZDU1NGU4OTZiMjFkMDVmIiwiMjQwOTo0MGYwOmRmOmU5ZTk6NjQyYTpiZTExOjRkOTk6ODZlOSJdLCJfc2Vzc2lvbl9leHBpcnkiOjEyMDk2MDB9.D1X0UBWzrj9xyC_GmwuQ5cHflIeZ8EFluAc0KiWfPZE; csrftoken=G5g9wZgKi9ZSYaP9yiJUGAEwfszkDCSvYV2LZLTZ3bVtKY35sUmOWNSB0370p4Z5;\",\n  \"x-csrftoken\": \"G5g9wZgKi9ZSYaP9yiJUGAEwfszkDCSvYV2LZLTZ3bVtKY35sUmOWNSB0370p4Z5\",\n   \"accept\": \"application/json\"\n}\n",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": " application/json",
+        "body": "{   \"query\": \"query { activeDailyCodingChallengeQuestion { date userStatus link question { title titleSlug } } }\" }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        144,
+        -144
+      ],
+      "id": "1240f6c1-cfe4-4606-9b75-dc22916985f4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "19a05bd1-f863-4c24-bd10-88d96478f14d",
+              "name": "subject",
+              "value": "LeetCode Reminder 🚀",
+              "type": "string"
+            },
+            {
+              "id": "33e65d6a-6273-41c4-b250-18fcd5da4528",
+              "name": "message",
+              "value": "=Don’t forget to solve today’s LeetCode daily challenge!  📌 Title: {{$json[\"data\"][\"activeDailyCodingChallengeQuestion\"][\"question\"][\"title\"]}} ⚡ Difficulty: {{$json[\"data\"][\"activeDailyCodingChallengeQuestion\"][\"question\"][\"difficulty\"]}} ✅ Link: https://leetcode.com{{$json[\"data\"][\"activeDailyCodingChallengeQuestion\"][\"link\"]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        384,
+        -256
+      ],
+      "id": "79b04639-ef8a-41ad-956c-01f7a211ab2d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "sendTo": "bandipreethamreddy16@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        -144
+      ],
+      "id": "7434cbd5-a5e1-4286-aaba-aaaed20bb5e9",
+      "name": "Send a message",
+      "webhookId": "b4baf6bd-a8e3-4453-a37d-a6de89375daf",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aQSF2F69RZBfXvpP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "26a349c8-5055-4906-8840-256639cb2f55",
+              "leftValue": "={{$json[\"data\"][\"activeDailyCodingChallengeQuestion\"][\"userStatus\"]}}",
+              "rightValue": "Finish",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        464,
+        -16
+      ],
+      "id": "87740b21-c9ce-483f-9aeb-bca95954ae77",
+      "name": "If"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "1af62bf2-7ae6-4fcc-a435-10ff4c39b627",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f2e9ec43e6f5e552eed10d182a6320e418d6ce717a26235545ba52effe415454"
+  },
+  "id": "w5bR3XyHqo37X7G7",
+  "tags": []
+}
