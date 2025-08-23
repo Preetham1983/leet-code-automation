@@ -1,6 +1,7 @@
 LeetCode Consistency Bot 🤖
 A personal automation script designed to keep your LeetCode grind consistent! This bot checks your LeetCode progress and sends you email reminders every two hours until you've successfully completed a problem for the day.
 
+
 Stay on track and crush your coding interview preparation! 🚀
 
 ✨ Features
@@ -8,7 +9,7 @@ Stay on track and crush your coding interview preparation! 🚀
 
 ✅ Smart Submission Checking: Uses the LeetCode GraphQL API to check if you have made any successful submissions on the current day.
 
-⏰ Customizable Schedule: The script is configured to start at 5:30 AM and run every 2 hours, but can be easily adjusted via a cron job.
+⏰ Customizable Schedule: The script is configured to start at 5:30 AM and run every 2 hours, but can be easily adjusted via a schedular trigger in n8n automation.
 
 🔑 Secure API Integration: Authenticates with the LeetCode API using your personal leetcode_session and csrftoken for secure data access.
 
