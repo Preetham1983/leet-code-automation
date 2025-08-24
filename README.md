@@ -1,93 +1,155 @@
 LeetCode Consistency Bot 🤖
-A personal automation script designed to keep your LeetCode grind consistent! This bot checks your LeetCode progress and sends you email reminders every two hours until you've successfully completed a problem for the day.
 
+A personal automation script designed to keep your LeetCode grind consistent!
+This bot checks your daily LeetCode progress and sends you email reminders every two hours until you've successfully completed at least one problem for the day.
 
 Stay on track and crush your coding interview preparation! 🚀
 
 ✨ Features
+
 📧 Automated Email Reminders: Sends reminder emails at a set interval to keep you accountable.
 
-✅ Smart Submission Checking: Uses the LeetCode GraphQL API to check if you have made any successful submissions on the current day.
+✅ Smart Submission Checking: Uses the LeetCode GraphQL API to check if you’ve made any successful submissions on the current day.
 
-⏰ Customizable Schedule: The script is configured to start at 5:30 AM and run every 2 hours, but can be easily adjusted via a schedular trigger in n8n automation.
+⏰ Customizable Schedule: The script is configured to start at 5:30 AM and run every 2 hours, but can be easily adjusted via a scheduler trigger in n8n automation or OS cron jobs.
 
-🔑 Secure API Integration: Authenticates with the LeetCode API using your personal leetcode_session and csrftoken for secure data access.
+🔑 Secure API Integration: Authenticates with the LeetCode API using your leetcode_session and csrftoken for secure data access.
 
 ⚙️ Easy Configuration: All sensitive keys, tokens, and email details are managed via environment variables for security and ease of setup.
 
 🛠️ Tech Stack
+
 Language: Python 🐍
 
 API: LeetCode GraphQL API 🕸️
 
-Networking: HTTP Requests (requests library)
+Networking: requests library
 
 Scheduling: Cron Job ⏲️ (or any OS-level task scheduler)
 
 Emailing: SMTP (smtplib) 📨
 
 🚀 Getting Started
+
 Follow these steps to get the automation up and running on your local machine or server.
 
-Prerequisites
+✅ Prerequisites
+
 Python 3.6+
 
 A LeetCode account
 
-A Gmail account (or any other email provider) to send emails from.
+A Gmail account (or other email provider) to send reminders
 
-Important for Gmail: You will need to generate an "App Password" to use for sending emails. You can find instructions here.
+Important for Gmail: You need to generate an App Password instead of using your regular password. Follow Google’s instructions here
+.
 
 1. Clone the Repository
-Bash
-
 git clone https://github.com/your-username/leet-code-automation.git
 cd leet-code-automation
-2. Install Dependencies
-It's recommended to use a virtual environment.
 
-Bash
+2. Install Dependencies
+
+It’s recommended to use a virtual environment.
 
 # Create and activate a virtual environment (optional but recommended)
 python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+source venv/bin/activate   # On Windows: venv\Scripts\activate
 
-# Install the required packages
+# Install required packages
 pip install -r requirements.txt
-(Note: You will need to create a requirements.txt file with libraries like requests and python-dotenv.)
+
+
+Note: You need to create a requirements.txt file with libraries like:
+
+requests
+python-dotenv
 
 3. Configuration
-This project uses environment variables to handle your secret keys and tokens securely.
 
-Create a file named .env in the root of the project directory.
+This project uses environment variables to handle your secrets securely.
 
-Copy the contents of .env.example into your new .env file.
+Create a file named .env in the project root.
 
-Code snippet
+Copy contents from .env.example into your new .env.
 
-# .env.example
-
+.env.example
 # LeetCode API Credentials
 LEETCODE_SESSION="YOUR_LEETCODE_SESSION_COOKIE"
 CSRF_TOKEN="YOUR_CSRF_TOKEN"
 
 # Email Configuration
 SENDER_EMAIL="your_email@gmail.com"
-SENDER_PASSWORD="YOUR_GMAIL_APP_PASSWORD" # Not your regular password!
+SENDER_PASSWORD="YOUR_GMAIL_APP_PASSWORD"   # Not your regular password!
 RECEIVER_EMAIL="your_personal_email@example.com"
-Fill in the values in your .env file.
 
-How to get LEETCODE_SESSION and CSRF_TOKEN:
-Log in to your LeetCode account in your web browser.
+🔑 How to Get LEETCODE_SESSION and CSRF_TOKEN
 
-Open the browser's Developer Tools (usually by pressing F12 or Ctrl+Shift+I).
+Log in to your LeetCode account in your browser.
+
+Open Developer Tools (F12 or Ctrl+Shift+I).
 
 Go to the Network tab.
 
-Refresh the page or click on any problem. Find a request made to https://leetcode.com/graphql.
+Refresh the page or open any problem.
 
-Click on this request and look at the Request Headers section.
+Look for a request made to:
 
-Find the cookie header. Inside, you will see LEETCODE_SESSION=...; and csrftoken=...;.
+https://leetcode.com/graphql
 
-Copy the corresponding values and paste them into your .env file.
+
+Click the request → check Request Headers.
+
+Find the cookie header → inside it, you’ll see:
+
+LEETCODE_SESSION=...;
+csrftoken=...;
+
+
+Copy those values and paste them into your .env file.
+
+⏰ Scheduling
+
+By default, the script is set to run at 5:30 AM and repeat every 2 hours.
+
+On Linux/Mac, use a cron job:
+
+crontab -e
+
+
+Then add:
+
+30 5-23/2 * * * /usr/bin/python3 /path/to/leet-code-automation/main.py
+
+
+On Windows, use Task Scheduler or integrate with n8n automation.
+
+📧 Email Notifications
+
+The bot uses SMTP to send reminder emails.
+
+Make sure less secure apps is disabled (if using Gmail, use App Passwords).
+
+You will receive emails like:
+
+✅ "Great job! You’ve solved a problem today 🎉"
+
+⏰ "Reminder: No submissions yet today, keep grinding 💪"
+
+🎯 Why Use This?
+
+Keeps your consistency streak alive 🔥
+
+Builds the habit of daily problem-solving
+
+Holds you accountable with gentle nudges via email
+
+Saves you from the "oops, I forgot to code today" moments 😅
+
+📌 Future Improvements
+
+Telegram/Slack notifications instead of only email
+
+Smarter analytics on your daily submissions
+
+Web dashboard to track streaks
