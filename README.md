@@ -10,7 +10,7 @@ An n8n workflow designed to keep you consistent with your LeetCode daily challen
 
 We all know consistency is key to mastering data structures and algorithms. However, it's easy to forget the daily LeetCode problem amidst a busy schedule. This project provides a simple, automated solution to that problem.
 
-The workflow, built on the low-code platform **n8n**, runs on a schedule, checks your LeetCode profile, and acts as your personal accountability partner. Once you solve the problem, it stops reminding you for the day.
+The workflow, built on the low-code platform **n8n**, runs on a schedule (every 2 hrs), checks your LeetCode profile, and acts as your personal accountability partner. Once you solve the problem, it stops reminding you for the day.
 
 ---
 
