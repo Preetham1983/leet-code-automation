@@ -1,7 +1,7 @@
 # 🤖 LeetCode Daily Problem Reminder using n8n
 
 An n8n workflow designed to keep you consistent with your LeetCode daily challenges. This automation checks if you've solved the daily LeetCode problem and sends you an email reminder every two hours until you do.
-and it stops sending emails after solving the  daily questions 
+and it stops sending emails after solving the  daily questions and makes the clients to be consistent
 
 
 ---
